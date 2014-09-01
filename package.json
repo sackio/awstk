@@ -1,7 +1,7 @@
 {
   "name": "awstk",
   "description": "Toolkit for AWS on Node.js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/sackio/awstk",
   "author": {
     "name": "Ben Sack",
@@ -39,6 +39,8 @@
   , "async": "*"
   , "underscore": "*"
   , "aws-sdk": "*"
+  , "moment": "*"
+  , "request": "*"
   },
   "keywords": []
 }
