@@ -18,6 +18,7 @@ var awstk = require('awstk')
                      , region: "YOUR REGION"
                      });
   , instance = new awstk.ec2_instance();
+```
 
 ## Methods
 All methods accept optional options object and callback as last two arguments (order doesn't matter). If options are not supplied, defaults are used. If callback is not supplied, noop is used.
