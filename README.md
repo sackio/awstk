@@ -7,6 +7,17 @@ Currently, awstk focuses on S3, EC2, and methods for EC2 instances. Functions in
 ## Getting Started
 Install the module with: `npm install awstk`
 
+Provide you AWS credentions. Requires environmental variables of ``AMAZON_KEY``, ``AMAZON_SECRET``, and ``AMAZON_REGION``, or include a ``config.json`` file placed in the module's root path, with an object like:
+
+```javascript
+{"aws":
+  { "accessKeyId": "YOUR KEY"
+  , "secretAccessKey": "YOUR SECRET"
+  , "region": "YOUR REGION"
+  }
+}
+```
+
 ```javascript
 var awstk = require('awstk')
   , s3 = new awstk.s3({accessKeyId: "YOUR KEY"
@@ -58,16 +69,7 @@ Methods for getting instance-specific data on an EC2 instance
 * **getMetaData(property, callback)** - Get an EC2 instances meta-data property
 
 ## Scripts & Plugins
-Available in ``./scripts`` directory. Scripts ready to be run from the command line. Requires config.json file place in root path, with an object like:
-
-```javascript
-{"aws":
-  { "accessKeyId": "YOUR KEY"
-  , "secretAccessKey": "YOUR SECRET"
-  , "region": "YOUR REGION"
-  }
-}
-```
+Available in ``./scripts`` directory. Scripts ready to be run from the command line.
 
 * **create-expiring-snapshot --volume [EBS volume id] --days [days to retain snapshot]** - Create a snapshot of an EBS volume, tagged to expire after the given number of days
 * **delete-expired-snapshots** - Deletes any snapshots which have an Expires tag prior to current time

@@ -7,9 +7,17 @@
 var Awstk = require('../lib/awstk.js')
   , Optionall = require('optionall')
   , Path = require('path')
-  , O = new Optionall({'__dirname': Path.normalize(require.main.filename + '/../..')})
-  , EC2 = new Awstk.ec2(O.aws)
+  , _ = require('underscore')
+  , O = new Optionall({'__dirname': Path.normalize(require.main.filename + '/../..')});
 ;
+
+O.aws = _.defaults(O.aws || {}, {
+      'accessKeyId': O.AMAZON_KEY
+    , 'secretAccessKey': O.AMAZON_SECRET
+    , 'region': O.AMAZON_REGION
+    });
+
+var EC2 = new Awstk.ec2(O.aws);
 
 if (O.h || O.help || O.usage){
   console.log('Delete EBS snapshots with an Expires tag and value before now');
