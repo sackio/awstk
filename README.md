@@ -58,7 +58,19 @@ Methods for getting instance-specific data on an EC2 instance
 * **getMetaData(property, callback)** - Get an EC2 instances meta-data property
 
 ## Scripts & Plugins
-Future versions will include commandline scripts and module for further abstracting AWS routines
+Available in ``./scripts`` directory. Scripts ready to be run from the command line. Requires config.json file place in root path, with an object like:
+
+```javascript
+{"aws":
+  { "accessKeyId": "YOUR KEY"
+  , "secretAccessKey": "YOUR SECRET"
+  , "region": "YOUR REGION"
+  }
+}
+```
+
+* **create-expiring-snapshot --volume [EBS volume id] --days [days to retain snapshot]** - Create a snapshot of an EBS volume, tagged to expire after the given number of days
+* **delete-expired-snapshots** - Deletes any snapshots which have an Expires tag prior to current time
 
 ## License
 Copyright (c) 2014 Ben Sack  

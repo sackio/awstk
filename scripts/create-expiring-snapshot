@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+/*
+  Create an EBS snapshot of [volume] that will expire in [days]
+*/
+
+var Awstk = require('../lib/awstk.js')
+  , Optionall = require('optionall')
+  , Path = require('path')
+  , O = new Optionall({'__dirname': Path.normalize(require.main.filename + '/../..')})
+  , EC2 = new Awstk.ec2(O.aws)
+;
+
+if (O.h || O.help || O.usage || !O.volume){
+  console.log('Create an EBS snapshot of [volume] that will expire in [days]');
+  console.log('usage: --volume [volume id to backup] --days [days to retain snapshot]');
+  process.exit(0);
+}
+
+EC2.createExpiringSnapshot(O.volume, O.days, function(err){
+  if (err) console.error(err);
+  return process.exit(err ? 1 : 0);
+});
