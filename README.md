@@ -75,5 +75,5 @@ Available in ``./scripts`` directory. Scripts ready to be run from the command l
 * **delete-expired-snapshots** - Deletes any snapshots which have an Expires tag prior to current time
 
 ## License
-Copyright (c) 2014 Ben Sack  
+Copyright (c) 2014 Ben Sack
 Licensed under the MIT license.
