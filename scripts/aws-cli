@@ -11,6 +11,7 @@ var Path = require('path')
   , Events = require('events')
   , Checksum = require('checksum')
   , Spinner = require('its-thinking')
+  , AWSTK = require('../lib/awstk.js')
 ;
 
 module.exports = function(O){
@@ -28,21 +29,23 @@ module.exports = function(O){
   if (!Opts.log) log.add(Winston.transports.Console, {'level': S.settings.log_level, 'colorize': true, 'timestamp': false});
   S.log = log;
 
-  S['spinner'] = new Spinner(1);
+  S['spinner'] = new Spinner(4);
+  S['s3'] = new AWSTK.s3(S.settings.aws);
+//  S['ec2'] = new AWSTK.ec2(S.settings.aws);
 
   return S;
 };
 
 if (require.main === module){
   var M = new module.exports()
-    , method = _.find(_.keys(M.settings.argv), function(k){ return M[k]; });
+    , method = _.find(_.keys(M.settings.argv), function(k){ return M[M.settings.argv.service][k]; });
 
   if (!method){
     M.log.error('Method not found');
     process.exit(1);
   } else {
     M.spinner.start();
-    M[method](M.settings.argv, function(err, res){
+    M[M.settings.argv.service][method](_.omit(M.settings.argv, ['_', method, '$0', 'service']), function(err, res){
       M.spinner.stop();
       if (err) M.log.error(err);
       if (res) M.log.info(Belt.stringify(res));
